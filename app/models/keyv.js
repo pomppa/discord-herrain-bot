@@ -14,7 +14,7 @@ module.exports = {
 		const data = await keyv.get(key);
 		if (!data) {
 			keyv.set(key, []);
-			console.log('Initialized empty array to key ${key}' + key);
+			console.log(`Initialized empty array to key ${key}`);
 		}
 	},
 	// Get data with key
