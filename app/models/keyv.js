@@ -1,7 +1,9 @@
 const Keyv = require('keyv');
+const env = require('../configs/env');
+env.environment;
 
 // Initialize Keyv and log errors
-const keyv = new Keyv('redis://user@localhost:6379');
+const keyv = new Keyv(process.env.REDIS_URI);
 keyv.on('error', (err) => {
 	console.log('Redis encountered an error: ', err);
 });
