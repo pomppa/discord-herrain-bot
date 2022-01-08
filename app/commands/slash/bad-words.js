@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const dataListManager = require('../../models/dataList-manager');
+const dataListManager = require('../../models/datalist-manager');
 const env = require('../../configs/env');
 env.environment();
 
