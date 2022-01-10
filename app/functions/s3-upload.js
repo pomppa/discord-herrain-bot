@@ -1,6 +1,7 @@
 const request = require('request');
 const s3 = require('./helpers/s3');
 const env = require('../configs/env');
+const validUrl = require('valid-url');
 env.environment();
 
 function execute(msg) {
@@ -47,6 +48,12 @@ function getMediaUrlToUpload(msg) {
 	if (msg.attachments.first() ?. url) {
 		console.log('Found URL from attachments.');
 		return msg.attachments.first() ?. url;
+	}
+
+	// Finally, check message content
+	if (validUrl.isUri(msg.content)){
+		console.log('Found URL from msg.content.');
+		return msg.content;
 	}
 
 	console.log("Did not find URL from message.");
