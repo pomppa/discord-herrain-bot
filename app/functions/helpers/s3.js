@@ -1,4 +1,6 @@
 const AWS = require('aws-sdk');
+const env = require('../../configs/env');
+env.environment();
 
 const s3 = new AWS.S3({
 	accessKeyId: process.env.S3_ID,
@@ -9,21 +11,21 @@ module.exports = {
 	uploadFileFromURL: function(res, body, fileName) {
 		// Check if object exists to see if it should be renamed
 		objectExists(fileName).then(function(fileToUpload) {
-			console.log('File found on S3 : ' + fileToUpload);
-			renameFile(fileToUpload);
-			uploadFile(fileToUpload);
+			console.log('File found on S3: ' + fileToUpload);
+			const renamedFile = renameFile(fileToUpload);
+			uploadFile(renamedFile);
 		}, function() {
-			console.log('File not found on S3 : ' + fileName);
+			console.log('File not found on S3: ' + fileName);
 			uploadFile(fileName);
 		});
 
 		/**
          * Upload a file to s3
          */
-		function uploadFile(filename) {
+		function uploadFile(file) {
 			const params = {
 				Bucket: process.env.BUCKET_NAME,
-				Key: 'files/' + filename,
+				Key: 'files/' + file,
 				Body: body,
 				ContentType: res.headers['content-type'],
 				ContentLength: res.headers['content-length'],

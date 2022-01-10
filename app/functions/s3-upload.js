@@ -1,11 +1,11 @@
 const request = require('request');
 const s3 = require('./helpers/s3');
 const env = require('../configs/env');
+env.environment();
 
 function execute(msg) {
 	const url = getMediaUrlToUpload(msg);
 	if (url) {
-		env.environment();
 		const fileName = new URL(url).pathname.split('/').pop();
 		// TODO Switch to async request so that we can support arrays
 		request({
@@ -20,7 +20,7 @@ function execute(msg) {
 			if (res.headers['content-type'].match('audio/|media/|image/|video/')) {
 				console.log('Content-type matched to media, proceeding to upload to S3');
 				if (process.env.NODE_ENV == 'production') {
-					s3.uploadFileFromURL(res, fileName);
+					s3.uploadFileFromURL(res, res.body, fileName);
 				}
 				else {
 					console.log('Environment was not production, decided to not upload');
@@ -39,14 +39,17 @@ function getMediaUrlToUpload(msg) {
 
 	// Check if we have URL on embeds
 	if (msg.embeds.length > 0) {
+		console.log('Found URL from embeds.');
 		return msg.embeds[0].url;
 	}
 
 	// If link was not found from message, check if we have URL on attachments
 	if (msg.attachments.first() ?. url) {
+		console.log('Found URL from attachments.');
 		return msg.attachments.first() ?. url;
 	}
 
+	console.log("Did not find URL from message.");
 	return false;
 
 }
