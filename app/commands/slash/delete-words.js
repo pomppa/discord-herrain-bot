@@ -12,8 +12,10 @@ module.exports = {
 	async execute(interaction) {
 
 		// Workaround to check role as options do not support permissions
+		let allowedRolesArray = allowedRolesForAdd.split(',');
+
 		if (interaction.options.getSubcommand() !== 'list') {
-			if (!allowedRolesForAdd.includes(interaction.member._roles[0])) {
+			if (!allowedRolesArray.some(role => interaction.member._roles.includes(role))) {
 				return interaction.reply('Role does not have access to configure words.');
 			}
 		}
