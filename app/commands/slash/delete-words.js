@@ -12,7 +12,7 @@ module.exports = {
 	async execute(interaction) {
 
 		// Workaround to check role as options do not support permissions
-		let allowedRolesArray = allowedRolesForAdd.split(',');
+		const allowedRolesArray = allowedRolesForAdd.split(',');
 
 		if (interaction.options.getSubcommand() !== 'list') {
 			if (!allowedRolesArray.some(role => interaction.member._roles.includes(role))) {
