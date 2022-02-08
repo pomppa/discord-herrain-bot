@@ -24,7 +24,9 @@ function execute(client, msg) {
 			data.forEach(word => {
 				if (msg.content.toLowerCase().includes(word)) {
 					msg.delete();
-					return channel.send(`<@${msg.author.id}> stop using ${process.env.DELETE_WORDS_KEY} words.`);
+					if (msg.channel.id !== process.env.S3_UPLOAD_CHANNEL_ID) {
+						return channel.send(`<@${msg.author.id}> stop using ${process.env.DELETE_WORDS_KEY} words.`);
+					}
 				}
 			});
 		});
