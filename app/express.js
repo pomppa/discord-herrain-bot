@@ -3,7 +3,7 @@ env.environment();
 
 const express = require('express');
 const app = express();
-const client = require('./api/client.js');
+const client = require('./api/client');
 const { auth } = require('express-oauth2-jwt-bearer');
 
 const checkJwt = auth({
