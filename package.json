@@ -24,6 +24,7 @@
     "discord-api-types": "^0.25.2",
     "discord.js": "^13.5.0-dev.1640390738.2bfc638",
     "express": "^4.16.2",
+    "express-oauth2-jwt-bearer": "^1.1.0",
     "fs-extra": "^2.1.2",
     "https": "^1.0.0",
     "keyv": "^4.0.4",

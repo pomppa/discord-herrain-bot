@@ -1,13 +1,24 @@
+const env = require ('./configs/env');
+env.environment();
+
 const express = require('express');
 const app = express();
 const client = require('./api/client.js');
+const { auth } = require('express-oauth2-jwt-bearer');
+
+const checkJwt = auth({
+	audience: process.env.AUTH0_AUDIENCE,
+	issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
+});
 
 // Initialize express server
 const initialize = () => {
 	app.use(express.static('public'));
+
 	app.get('/', (req, res) => res.send('moi'));
 
-	app.get('/api/users/:userId', (req, res) => {
+	app.get('/api/users/:userId', checkJwt, (req, res) => {
+
 		client.getUserIsAllowed(req.params.userId)
 			.then(resp => {
 				res.status(resp.status);
