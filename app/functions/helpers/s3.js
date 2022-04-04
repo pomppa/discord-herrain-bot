@@ -41,6 +41,38 @@ module.exports = {
 		}
 
 	},
+	getAwsFileList: function() {
+		const params = {
+			Bucket: process.env.BUCKET_NAME,
+			Prefix: 'files/',
+		};
+
+		return new Promise(function(resolve, reject) {
+			s3.listObjectsV2(params, function(err, data) {
+				if (err) {
+					reject(err);
+				}
+
+				const items = data.Contents;
+				items.sort(function(a, b) {
+					return new Date(b.LastModified) - new Date(a.LastModified);
+				});
+
+				// eslint-disable-next-line no-unused-vars
+				const popped = items.pop();
+
+				const s3Data = {
+					'url': process.env.S3_BASE_URL + '/',
+				};
+
+				items.push(s3Data);
+
+				resolve(items);
+
+			});
+		});
+	},
+
 };
 
 // Head objects to see if file exists

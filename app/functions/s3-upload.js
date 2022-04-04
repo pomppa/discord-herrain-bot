@@ -51,12 +51,12 @@ function getMediaUrlToUpload(msg) {
 	}
 
 	// Finally, check message content
-	if (validUrl.isUri(msg.content)){
+	if (validUrl.isUri(msg.content)) {
 		console.log('Found URL from msg.content.');
 		return msg.content;
 	}
 
-	console.log("Did not find URL from message.");
+	console.log('Did not find URL from message.');
 	return false;
 
 }
