@@ -28,7 +28,7 @@ const initialize = () => {
 
 		client.getUserIsAllowed(req.params.userId)
 			.then(resp => {
-				res.status(resp.status);
+				res.status(200);
 				res.send(resp.data);
 				console.log(`Validated user with ID ${req.params.userId}. Validation evaluated as ${resp.data.isAllowed}.`);
 			})
