@@ -58,9 +58,6 @@ module.exports = {
 					return new Date(b.LastModified) - new Date(a.LastModified);
 				});
 
-				// eslint-disable-next-line no-unused-vars
-				const popped = items.pop();
-
 				const s3Data = {
 					'url': process.env.S3_BASE_URL + '/',
 				};
