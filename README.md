@@ -3,12 +3,15 @@ more bots beepboop
 
 fill in .env file
 
-`cp .env0 .env`
+`cp app/configs/files/.env-sample app/configs/files/.env`
 
 obtain token from Discord Developer Portal
+create s3 bucket
+auth0 jwt?
+configure redis
 
 add token to .env
 
 `npm install`
 
-`node bot.js`
+`node app/bot.js`
