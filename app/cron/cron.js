@@ -4,7 +4,6 @@ env.environment();
 
 module.exports = {
     schedule(client) {
-
         /**
          * Schedule cron for fridays
          */

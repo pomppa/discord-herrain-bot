@@ -20,8 +20,8 @@ const commandFiles = fs.readdirSync(dirPath).filter(file => file.endsWith('.js')
 
 // Loop command files
 for (const file of commandFiles) {
-	const command = require(`./commands/slash/${file}`);
-	client.commands.set(command.data.name, command);
+    const command = require(`./commands/slash/${file}`);
+    client.commands.set(command.data.name, command);
 }
 
 // Initialize express server and get env for local development, register commands
@@ -36,36 +36,36 @@ client.login(process.env.TOKEN).then(cron.schedule(client));
 
 // Bot ready
 client.on('ready', () => {
-	console.log(`Logged in as ${client.user.id}.`);
+    console.log(`Logged in as ${client.user.id}.`);
 });
 
 // Handle specific commands
 client.on('messageCreate', msg => {
-	if (msg.content.startsWith('!') && !msg.author.bot) {
-		commands.execute(client, msg);
-	}
+    if (msg.content.startsWith('!') && !msg.author.bot) {
+        commands.execute(client, msg);
+    }
 });
 
 // Handle common functions
 client.on('messageCreate', msg => {
-	if (!msg.content.startsWith('!') && !msg.author.bot) {
-		commons.execute(client, msg);
-	}
+    if (!msg.content.startsWith('!') && !msg.author.bot) {
+        commons.execute(client, msg);
+    }
 });
 
 // Handle commands on interactions
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isCommand()) return;
+    if (!interaction.isCommand()) return;
 
-	const command = client.commands.get(interaction.commandName);
+    const command = client.commands.get(interaction.commandName);
 
-	if (!command) return;
+    if (!command) return;
 
-	try {
-		await command.execute(interaction);
-	}
-	catch (error) {
-		console.error(error);
-		return interaction.reply({ content: 'There was an error while executing this command.', ephemeral: true });
-	}
+    try {
+        await command.execute(interaction);
+    }
+    catch (error) {
+        console.error(error);
+        return interaction.reply({ content: 'There was an error while executing this command.', ephemeral: true });
+    }
 });

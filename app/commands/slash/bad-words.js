@@ -6,11 +6,11 @@ env.environment();
 const dataKey = process.env.REACTION_WORDS_KEY;
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName(dataKey),
-	async execute(interaction) {
-		await dataListManager.execute(interaction, dataKey).then(message => {
-			interaction.reply(message);
-		});
-	},
+    data: new SlashCommandBuilder()
+        .setName(dataKey),
+    async execute(interaction) {
+        await dataListManager.execute(interaction, dataKey).then(message => {
+            interaction.reply(message);
+        });
+    },
 };
