@@ -9,9 +9,9 @@ obtain token from Discord Developer Portal
 
 create s3 bucket
 
-auth0 jwt?
+auth0 jwt for api routes
 
-configure redis
+redis
 
 add token to .env
 
